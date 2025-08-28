@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Animal & File Upload</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .container { display: flex; gap: 30px; }
+        .box { border: 2px solid #ccc; padding: 20px; width: 300px; border-radius: 10px; }
+        img { max-width: 100%; margin-top: 15px; }
+        .file-info { margin-top: 15px; color: green; }
+        button { margin-top: 10px; padding: 5px 15px; }
+    </style>
+</head>
+<body>
+    <h2>Animal Selector & File Uploader</h2>
+    <form method="POST" enctype="multipart/form-data">
+        <div class="container">
+            <!-- Animal Selection Box -->
+            <div class="box">
+                <h3>Select an Animal</h3>
+                <input type="radio" name="animal" value="cat"> Cat <br>
+                <input type="radio" name="animal" value="dog"> Dog <br>
+                <input type="radio" name="animal" value="elephant"> Elephant <br>
+                {% if animal %}
+                    <img src="{{ url_for('static', filename='images/' + animal + '.jpg') }}" alt="{{animal}}">
+                {% endif %}
+            </div>
+
+            <!-- File Upload Box -->
+            <div class="box">
+                <h3>Upload a File</h3>
+                <input type="file" name="file"><br>
+                {% if file_info %}
+                    <div class="file-info">
+                        <p><b>Name:</b> {{ file_info.name }}</p>
+                        <p><b>Size:</b> {{ file_info.size }} bytes</p>
+                        <p><b>Type:</b> {{ file_info.type }}</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
